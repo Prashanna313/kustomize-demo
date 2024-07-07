@@ -1,0 +1,25 @@
+
+namespace: test
+
+nameSuffix: -test
+
+
+configMapGenerator:
+- envs:
+  - configmap.properties
+  name: mykustom-map
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ../../base
+
+patches:
+  - target:
+      kind: Deployment
+    patch: |
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: mywebapp
+      spec:
+        replicas: 5
